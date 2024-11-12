@@ -3,7 +3,6 @@ from django.views.generic.detail import DetailView
 from .models import Library  # Importing Library to ensure it's included
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 
 # Registration view
 def register(request):
@@ -34,3 +33,20 @@ class LibraryDetailView(DetailView):
         # Adding all books related to this library to the context
         context['books'] = self.object.books.all()
         return context
+
+from django.contrib.auth.decorators import permission_required
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    # add book logic
+    pass
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, book_id):
+    # edit book logic
+    pass
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, book_id):
+    # delete book logic
+    pass
