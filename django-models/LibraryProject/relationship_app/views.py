@@ -1,6 +1,22 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from .models import Library  # Importing Library to ensure it's included
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+# Registration view
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Automatically log in the user after registration
+            login(request, user)
+            return redirect('list_books')  # Redirect to a view after successful registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 # Function-based view to list all books in the database
 def list_books(request):
