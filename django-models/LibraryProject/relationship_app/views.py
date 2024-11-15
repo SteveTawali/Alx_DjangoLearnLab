@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import user_passes_test, permission_required
+#from django.contrib.auth.decorators import user_passes_test, permission_required
 
 # Models
 from .models import Library, Book  # Importing Library and Book models
@@ -16,18 +16,18 @@ def is_admin(user):
 # Views
 
 # Admin View
-@user_passes_test(is_admin)
-def admin_view(request):
-    """View restricted to Admin users."""
-    return render(request, 'admin_view.html')
+# @user_passes_test(is_admin)
+# def admin_view(request):
+#     """View restricted to Admin users."""
+#     return render(request, 'admin_view.html')
 
-#Librarian View
-def is_librarian(user):
-    return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+# #Librarian View
+# def is_librarian(user):
+#     return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
 
-@user_passes_test(is_librarian)
-def librarian_view(request):
-    return render(request, 'librarian_view.html')
+# @user_passes_test(is_librarian)
+# def librarian_view(request):
+#     return render(request, 'librarian_view.html')
 
 
 
