@@ -6,6 +6,7 @@ from django.urls import include
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import admin_view, librarian_view, member_view, list_books
+from .views import list_books
 
 urlpatterns = [
     # Admin Site
