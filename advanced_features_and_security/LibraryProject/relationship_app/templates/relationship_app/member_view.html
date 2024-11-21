@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Member Dashboard</h1>
+        <p>Hello, {{ user.username }}! You are logged in as a Member.</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Member Actions</h2>
+            <ul>
+                <li><a href="{% url 'list_books' %}">Browse Available Books</a></li>
+                <li><a href="{% url 'library_detail' pk=1 %}">View Library Info</a></li> <!-- Example library ID -->
+            </ul>
+        </section>
+
+        <section>
+            <h2>My Account</h2>
+            <p>Check out books and view your borrowing history in your account.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Library Management System</p>
+    </footer>
+</body>
+</html>
