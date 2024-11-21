@@ -33,3 +33,15 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(username, email, password, **extra_fields)
+
+
+class YourModel(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view item"),
+            ("can_create", "Can create item"),
+            ("can_edit", "Can edit item"),
+            ("can_delete", "Can delete item"),
+        ]
