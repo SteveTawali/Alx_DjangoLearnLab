@@ -131,3 +131,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
+
+urlpatterns = [
+    path('api/token/', obtain_auth_token, name='obtain-token'),
+    # Other URL patterns...
+]
