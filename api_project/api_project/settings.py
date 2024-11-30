@@ -130,12 +130,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Add this line
+    ],
 }
-
-from django.urls import path, include
-from rest_framework.authtoken.views import obtain_auth_token
-
-urlpatterns = [
-    path('api/token/', obtain_auth_token, name='obtain-token'),
-    # Other URL patterns...
-]
