@@ -2,6 +2,34 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 from .models import Book, Author
+from django.test import TestCase
+from django.contrib.auth.models import User
+
+class BookAPITestCase(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.client = APIClient()
+        self.client.login(username='testuser', password='testpassword')  # Log in the user
+
+        # Create a test book instance
+        self.book = Book.objects.create(
+            title="Test Book",
+            author="Test Author",
+            publication_year=2024
+        )
+    
+    def test_create_book(self):
+        response = self.client.post('/api/books/create/', {
+            'title': 'New Book',
+            'author': 'New Author',
+            'publication_year': 2025
+        })
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_delete_book(self):
+        response = self.client.delete(f'/api/books/{self.book.id}/delete/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 class BookAPITestCase(TestCase):
     def setUp(self):
