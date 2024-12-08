@@ -44,3 +44,14 @@ urlpatterns = [
     path('search/', search_view, name='search'),
     path('tags/<str:tag_name>/', views.posts_by_tag, name='posts_by_tag'),  # New URL for tag-based filtering
 ]
+
+from django.urls import path
+from .views import PostByTagListView  # Import your view
+
+urlpatterns = [
+    # Existing URL patterns
+    # e.g., path('some_existing_path/', some_view, name='existing_view_name'),
+
+    # New URL pattern for viewing posts by tag
+    path('tags/<slug:tag_slug>/', PostByTagListView.as_view(), name='post_by_tag'),
+]
