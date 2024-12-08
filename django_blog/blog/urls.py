@@ -1,22 +1,32 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import register, profile
+from .views import (
+    profile_view,
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+)
 
 urlpatterns = [
-    path("register/", register, name="register"),
+    # Auth-related URLs
     path("login/", LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
-    path("profile/", profile, name="profile"),
+    path("profile/", profile_view, name="profile"),
+    
+    # Blog-related URLs
+    path("post/", PostListView.as_view(), name="post_list"),
+    path("post/<int:pk>/", PostDetailView.as_view(), name="post_detail"),
+    path("post/new/", PostCreateView.as_view(), name="post_create"),
+    path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post_edit"),
+    path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post_delete"),
 ]
 
-
-from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 
 urlpatterns = [
-    path('post/', PostListView.as_view(), name='post_list'),
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
-    path('post/new/', PostCreateView.as_view(), name='post_create'),  # Add this line for creating new posts
-    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post_edit'),  # Add this line for editing posts
-    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),  # Add this line for deleting posts
+    path('posts/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='comment_create'),
+    path('comments/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment_edit'),
+    path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
 ]
