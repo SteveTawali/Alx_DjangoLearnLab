@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.auth',
+    'accounts',
     'blog',
+
 ]
 
 MIDDLEWARE = [
@@ -74,15 +77,14 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_db_name',
-        'USER': 'your_db_user',
-        'PASSWORD': 'your_db_password',
-        'HOST': 'localhost',  # Or the address of your database server
-        'PORT': '3306',       # Default MySQL port
+        'NAME': 'mydatabase',
+        'USER': 'root',
+        'PASSWORD': 'Tawali@+1',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
