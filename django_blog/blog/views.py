@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserUpdateForm
 
+
 @login_required
 def profile_view(request):
     if request.method == 'POST':
@@ -21,7 +22,8 @@ def profile_view(request):
 
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import PostForm
