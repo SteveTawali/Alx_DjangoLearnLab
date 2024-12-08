@@ -32,6 +32,7 @@ urlpatterns = [
 ]
 
 # urls.py
+from blog import views
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, search_view, CommentCreateView, CommentUpdateView, CommentDeleteView
 
 urlpatterns = [
