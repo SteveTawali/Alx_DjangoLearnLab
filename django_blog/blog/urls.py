@@ -17,7 +17,9 @@ urlpatterns = [
     path("login/", LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
     path("profile/", profile_view, name="profile"),
-    
+    path('register/', RegisterView.as_view(), name='register'),
+
+
     # Blog-related URLs
     path("post/", PostListView.as_view(), name="post_list"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post_detail"),

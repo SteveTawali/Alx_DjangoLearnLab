@@ -6,6 +6,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post, Comment
 
+class RegisterView(CreateView):
+    """
+    A view for user registration using Django's built-in UserCreationForm.
+    """
+    form_class = UserCreationForm
+    template_name = 'registration/register.html'  # Path to the template for registration
+    success_url = reverse_lazy('login')  # Redirects to the login page after successful registration
+
+
 # Post List View
 class PostListView(ListView):
     model = Post
