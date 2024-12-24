@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = get_user_model().objects.create_user(**validated_data)
         
         # Create token for the new user
-        token, _ = Token.objects.get_or_create(user=user)
+        token, _ = Token.objects.create(user=user)
         return user
 
 
