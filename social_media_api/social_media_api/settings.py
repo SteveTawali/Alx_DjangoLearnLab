@@ -9,6 +9,23 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
+
+# Static files (CSS, JavaScript, images)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Optional: AWS S3 storage for media files
+#AWS_ACCESS_KEY_ID = 'your-aws-access-key-id'
+#AWS_SECRET_ACCESS_KEY = 'your-aws-secret-access-key'
+#AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+#MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 from pathlib import Path
 
