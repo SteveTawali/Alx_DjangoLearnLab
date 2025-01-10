@@ -72,3 +72,35 @@ class FeedView(generics.GenericAPIView):
         ]
 
         return Response(serialized_posts)
+    
+
+class LikePostView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+        if created:
+            # Generate a notification for the like
+            Notification.objects.create(
+                recipient=post.author,  # The post's author
+                actor=request.user,    # The user who liked the post
+                verb="liked",
+                target=post
+            )
+            return Response({"message": "Post liked."}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"message": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
+
+class UnlikePostView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        try:
+            like = Like.objects.get(user=request.user, post=post)
+            like.delete()
+            return Response({"message": "Post unliked."}, status=status.HTTP_204_NO_CONTENT)
+        except Like.DoesNotExist:
+            return Response({"message": "You haven't liked this post."}, status=status.HTTP_400_BAD_REQUEST)
