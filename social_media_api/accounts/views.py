@@ -96,20 +96,22 @@ from rest_framework.response import Response
 
 CustomUser = get_user_model()
 
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.all()  # Ensures CustomUser.objects.all() is used.
 
-    def post(self, request, username):
+    def post(self, request, username, *args, **kwargs):
         user_to_follow = get_object_or_404(CustomUser, username=username)
         if user_to_follow == request.user:
             return Response({"error": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
         request.user.following.add(user_to_follow)
         return Response({"message": f"You are now following {username}."}, status=status.HTTP_200_OK)
 
-class UnfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.all()  # Ensures CustomUser.objects.all() is used.
 
-    def post(self, request, username):
+    def post(self, request, username, *args, **kwargs):
         user_to_unfollow = get_object_or_404(CustomUser, username=username)
         if user_to_unfollow == request.user:
             return Response({"error": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
