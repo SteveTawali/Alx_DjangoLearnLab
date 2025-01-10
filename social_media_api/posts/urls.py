@@ -26,6 +26,6 @@ urlpatterns = [
 ]
 
 urlpatterns = [
-    path('like/<int:pk>/', LikePostView.as_view(), name='like-post'),
-    path('unlike/<int:pk>/', UnlikePostView.as_view(), name='unlike-post'),
+    path('<int:pk>/like/', LikePostView.as_view(), name='like_post'),
+    path('<int:pk>/unlike/', UnlikePostView.as_view(), name='unlike_post'),
 ]
