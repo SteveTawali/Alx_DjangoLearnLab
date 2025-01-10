@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-74vmsq1z=3&)p@j**94@l0_5h6_j#18lk3oy^bz%oq%!^v_n^i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mysocialmediaapi',  # Your database name
+        'USER': 'Tawali',            # Your MySQL username
+        'PASSWORD': 'Tawali@1',      # Your MySQL password
+        'HOST': 'localhost',         # Local MySQL server
+        'PORT': '3306',              # Default MySQL port
     }
 }
 
