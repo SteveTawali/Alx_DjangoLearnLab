@@ -5,14 +5,14 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
 class CustomUser(AbstractUser):
-    # Define a ManyToMany relationship for "following"
-    following = models.ManyToManyField(
-        "self",  # Self-referential ManyToManyField
-        symmetrical=False,  # Not mutual following
-        related_name="followers",  # Avoid clashes
-        through="Follow",  # Intermediate model
-        through_fields=("follower", "followee"),  # Specify foreign keys
-    )
+    bio = models.TextField(blank=True, null=True)  # A field for user bio
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)  # A field for profile pictures
+    followers = models.ManyToManyField(
+        'self', 
+        symmetrical=False, 
+        related_name='following', 
+        blank=True
+    )  # Many-to-Many relationship for followers
 
     # Default fields for groups and permissions
     groups = models.ManyToManyField(
