@@ -49,11 +49,26 @@ from rest_framework.response import Response
 from .models import Post
 from .serializers import PostSerializer
 
-class FeedView(APIView):
-    permission_classes = [IsAuthenticated]
+class FeedView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
-        followed_users = request.user.following.all()
-        posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        # Get the users the current user is following
+        following_users = request.user.following.all()
+        
+        # Get posts from the followed users, ordered by creation date
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+
+        # Serialize the posts (assuming you have a PostSerializer)
+        serialized_posts = [
+            {
+                "id": post.id,
+                "title": post.title,
+                "content": post.content,
+                "author": post.author.username,
+                "created_at": post.created_at,
+            }
+            for post in posts
+        ]
+
+        return Response(serialized_posts)
